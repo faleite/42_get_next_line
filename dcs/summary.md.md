@@ -23,7 +23,7 @@ Description | Write a function that returns a line read from a file descriptor
 - Certifique-se de que sua função funcione conforme o esperado ao ler um arquivo e ao leitura da entrada padrão.
 - **Observe** que a linha retornada deve incluir o caractere final \\n, exceto se o final do arquivo for alcançado e não terminar com um caractere \\n.
 - Seu arquivo de cabeçalho get_next_line.h deve conter pelo menos o protótipo da função get_next_line().
-- Adicione todas as funções auxiliares necessárias no arquivo get_next_line_utils.c.
+- Adicione todas as funções auxiliares necessárias no arquivo get_next_line_utils.c
 - Como você terá que ler arquivos em get_next_line(), adicione esta opção ao seu chamada do compilador: `-D BUFFER_SIZE=n` 
   - Definirá o tamanho do buffer para read().
   - O valor do tamanho do buffer será modificado por seus pares avaliadores e pela Moulinette para testar seu código.
@@ -32,7 +32,7 @@ Description | Write a function that returns a line read from a file descriptor
 
 - Você compilará seu código da seguinte maneira (um tamanho de buffer de 42 é usado como exemplo):
 ```sh
-cc -Wall -Wextra -Werror -D BUFFER_SIZE=42 .c
+cc -Wall -Wextra -Werror -D BUFFER_SIZE=42 <files>.c
 ```
 - Consideramos que get_next_line() tem comportamento indefinido se o arquivo apontado pelo descritor de arquivo mudou desde a última chamada enquanto read() não chegou ao final do arquivo.
 - Também consideramos que get_next_line() tem um comportamento indefinido ao ler um arquivo binário. No entanto, você pode implementar uma maneira lógica de lidar com esse comportamento, se desejar.
