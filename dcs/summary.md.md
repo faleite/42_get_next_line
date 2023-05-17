@@ -27,8 +27,9 @@ Description | Write a function that returns a line read from a file descriptor
 - Como você terá que ler arquivos em get_next_line(), adicione esta opção ao seu chamada do compilador: `-D BUFFER_SIZE=n` 
   - Definirá o tamanho do buffer para read().
   - O valor do tamanho do buffer será modificado por seus pares avaliadores e pela Moulinette para testar seu código.
+  
+***Devemos ser capazes de compilar este projeto com e sem o sinalizador -D BUFFER_SIZE além dos sinalizadores usuais. Você pode escolher o valor padrão de sua escolha.***
 
-*Devemos ser capazes de compilar este projeto com e sem o sinalizador -D BUFFER_SIZE além dos sinalizadores usuais. Você pode escolher o valor padrão de sua escolha.*
 - Você compilará seu código da seguinte maneira (um tamanho de buffer de 42 é usado como exemplo):
 ```sh
 cc -Wall -Wextra -Werror -D BUFFER_SIZE=42 .c
@@ -36,13 +37,12 @@ cc -Wall -Wextra -Werror -D BUFFER_SIZE=42 .c
 - Consideramos que get_next_line() tem comportamento indefinido se o arquivo apontado pelo descritor de arquivo mudou desde a última chamada enquanto read() não chegou ao final do arquivo.
 - Também consideramos que get_next_line() tem um comportamento indefinido ao ler um arquivo binário. No entanto, você pode implementar uma maneira lógica de lidar com esse comportamento, se desejar.
 
-*Sua função ainda funciona se o valor de BUFFER_SIZE for 9999? Se for 1? 10000000? Você sabe por quê?*
+ ***Sua função ainda funciona se o valor de BUFFER_SIZE for 9999? Se for 1? 10000000? Você sabe por quê?***
 
-*Tente ler o mínimo possível cada vez que get_next_line() for chamado. Se você encontrar uma nova linha, deverá retornar a linha atual.
-					Não leia o arquivo inteiro e depois processe cada linha.*
+***Tente ler o mínimo possível cada vez que get_next_line() for chamado. Se você encontrar uma nova linha, deverá retornar a linha atual.
+					Não leia o arquivo inteiro e depois processe cada linha.***
 
 ### Proibido
-
 - Você não tem permissão para usar sua libft neste projeto.
 - lseek() é proibido.
 - Variáveis globais são proibidas.
