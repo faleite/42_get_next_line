@@ -20,11 +20,11 @@ Description | Write a function that returns a line read from a file descriptor
 - Chamadas repetidas (por exemplo, usando um loop) para sua função get_next_line() devem permitir que você leia o arquivo de texto apontado pelo descritor de arquivo, **uma linha por vez.**
 - Sua função deve retornar a linha que foi lida
   - Se não houver mais nada para ler ou se ocorreu um erro, ele deve retornar NULL
-- Certifique-se de que sua função funcione conforme o esperado ao ler um arquivo e ao leitura da entrada padrão.
+- Certifique-se de que sua função funcione conforme o esperado ao ler um arquivo e ao ler a partir da entrada padrão.
 - **Observe** que a linha retornada deve incluir o caractere final \\n, exceto se o final do arquivo for alcançado e não terminar com um caractere \\n.
 - Seu arquivo de cabeçalho get_next_line.h deve conter pelo menos o protótipo da função get_next_line().
 - Adicione todas as funções auxiliares necessárias no arquivo get_next_line_utils.c
-- Como você terá que ler arquivos em get_next_line(), adicione esta opção ao seu chamada do compilador: `-D BUFFER_SIZE=n` 
+- Como você terá que ler arquivos em get_next_line(), adicione esta opção à sua chamada do compilador: `-D BUFFER_SIZE=n` 
   - Definirá o tamanho do buffer para read().
   - O valor do tamanho do buffer será modificado por seus pares avaliadores e pela Moulinette para testar seu código.
   
