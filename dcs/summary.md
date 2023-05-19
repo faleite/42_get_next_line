@@ -3,8 +3,10 @@
 ## Descricao
 - Este projeto trata da programação de uma função que retorna uma linha lida de um descritor de arquivo.
 
-## Temas
-- [static variable](https://en.wikipedia.org/wiki/Static_variable)
+## Novo
+- [[static_variable]]
+- [[read]]
+- fd (file descriptor)
 
 ## Requisitos
 Function name | get_next_line
