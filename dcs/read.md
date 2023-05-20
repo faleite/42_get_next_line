@@ -12,7 +12,7 @@ ssize_t read(int fd, void *buffer, size_t nbytes);
 
 *Os parâmetros da função são:*
 
--   **`fd`**: O descritor de arquivo do qual deseja-se ler os dados. O descritor de arquivo é um inteiro que identifica o arquivo aberto ou outro dispositivo de entrada/saída. Em geral, o descritor de arquivo é obtido por meio da função `open()` ou é um descritor padrão pré definido, como 0 para entrada padrão (stdin).
+-   **`fd`**: O descritor de arquivo do qual deseja-se ler os dados. O descritor de arquivo é um inteiro que identifica o arquivo aberto ou outro dispositivo de entrada/saída. Em geral, o descritor de arquivo é obtido por meio da função **`open()`** ou é um descritor padrão pré definido, como 0 para entrada padrão (stdin).
 -   **`buffer`**: Um ponteiro para o buffer onde os dados lidos serão armazenados. Essa área de memória deve ser suficientemente grande para conter os dados lidos.
 -   **`nbytes`** ou **`count`**: O número máximo de bytes a serem lidos do arquivo.
 
@@ -26,3 +26,15 @@ ssize_t read(int fd, void *buffer, size_t nbytes);
 *A função **read()** tentará ler até **nbytes** do arquivo ou até encontrar o final do arquivo. Se a função for interrompida por um sinal antes de ler qualquer byte, ela retornará imediatamente com um valor menor que **nbytes**. A função **read()** pode ser bloqueante, o que significa que, se não houver dados disponíveis para leitura, ela poderá pausar a execução do programa até que haja dados disponíveis.*
 
 A função **read()** é usada principalmente para ler dados brutos de arquivos ou dispositivos de entrada/saída de baixo nível, como sockets ou pipes. É importante realizar manipulações adequadas de erros e garantir que o buffer fornecido seja grande o suficiente para acomodar os dados lidos.
+
+___
+
+## read() vs. write()
+
+*As funções **`write()`** e **`read()`** têm parâmetros semelhantes, mas diferem em sua funcionalidade principal:*
+
+-   A função **`write()`** é usada para escrever dados em um arquivo ou em um descritor de arquivo. Ela grava os dados do buffer no local associado ao descritor de arquivo.
+    
+-   A função **`read()`** é usada para ler dados de um arquivo ou de um descritor de arquivo. Ela lê os dados do local associado ao descritor de arquivo e os armazena no buffer fornecido.
+
+*Essas funções são complementares e são frequentemente usadas juntas para operações de entrada/saída de dados em sistemas baseados em UNIX.*

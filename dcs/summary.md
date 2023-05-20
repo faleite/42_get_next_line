@@ -4,9 +4,9 @@
 - Este projeto trata da programação de uma função que retorna uma linha lida de um descritor de arquivo.
 
 ## Novo
-- [[static_variable]]
+- [static_variable](./static_variable.md)
 - [[read]]
-- fd (file descriptor)
+- [[file_descriptor]]
 
 ## Requisitos
 Function name | get_next_line
