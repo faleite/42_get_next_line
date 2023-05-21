@@ -5,8 +5,8 @@
 
 ## Novo
 - [static_variable](./static_variable.md)
-- [[read]]
-- [[file_descriptor]]
+- [read](./read)
+- [file_descriptor](./file_descriptor)
 
 ## Requisitos
 Function name | get_next_line
