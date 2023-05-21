@@ -41,6 +41,10 @@ cc -Wall -Wextra -Werror -D BUFFER_SIZE=42 <files>.c
 
  ***Sua função ainda funciona se o valor de BUFFER_SIZE for 9999? Se for 1? 10000000? Você sabe por quê?***
 
+>R: O código funcionará normalmente independentemente do valor de `BUFFER_SIZE`, mas o comportamento exato dependerá do tamanho do arquivo de entrada e da quantidade de dados disponíveis para leitura.
+>
+ > - Por exemplo, se você definir `BUFFER_SIZE` como 9999 e o arquivo de entrada tiver menos de 9999 bytes, a função `read` lerá todos os bytes disponíveis e armazenará na string `s`. Se o arquivo tiver mais de 9999 bytes, a função `read` lerá apenas os primeiros 9999 bytes.
+
 ***Tente ler o mínimo possível cada vez que get_next_line() for chamado. Se você encontrar uma nova linha, deverá retornar a linha atual.
 					Não leia o arquivo inteiro e depois processe cada linha.***
 

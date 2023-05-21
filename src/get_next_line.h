@@ -6,20 +6,20 @@
 /*   By: faaraujo <faaraujo@student.42lisboa.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/20 12:50:32 by faaraujo          #+#    #+#             */
-/*   Updated: 2023/05/20 18:09:57 by faaraujo         ###   ########.fr       */
+/*   Updated: 2023/05/21 17:16:34 by faaraujo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef GET_NEXT_LINE_H
 # define GET_NEXT_LINE_H
 
-# include <unistd.h>
-# include <fcntl.h>
-# include <stdio.h>
-# include <stdlib.h>
+# include <unistd.h> /* for function read() */
+# include <fcntl.h> /* for function open() */
+# include <stdio.h> /* for standard input/output */
+# include <stdlib.h> /* for funtions malloc() and free() */
 
 # ifndef BUFFER_SIZE
-#  define BUFFER_SIZE 0
+#  define BUFFER_SIZE 100
 # endif /* BUFFER_SIZE */
 
 char	*get_next_line(int fd);
