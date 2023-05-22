@@ -6,7 +6,7 @@
 /*   By: faaraujo <faaraujo@student.42lisboa.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/20 12:50:32 by faaraujo          #+#    #+#             */
-/*   Updated: 2023/05/21 17:16:34 by faaraujo         ###   ########.fr       */
+/*   Updated: 2023/05/22 21:49:34 by faaraujo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,7 @@
 # include <fcntl.h> /* for function open() */
 # include <stdio.h> /* for standard input/output */
 # include <stdlib.h> /* for funtions malloc() and free() */
+# include <string.h>
 
 # ifndef BUFFER_SIZE
 #  define BUFFER_SIZE 100
