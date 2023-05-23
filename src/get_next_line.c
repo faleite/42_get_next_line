@@ -6,62 +6,45 @@
 /*   By: faaraujo <faaraujo@student.42lisboa.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/20 17:00:08 by faaraujo          #+#    #+#             */
-/*   Updated: 2023/05/22 21:58:26 by faaraujo         ###   ########.fr       */
+/*   Updated: 2023/05/23 22:16:01 by faaraujo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "get_next_line.h"
 
-size_t	ft_strlen(char *s)
+/**
+ * 1. Ler n_bytes (BUFFER_SIZE)
+ * 
+ * 2. Armazenar em uma variavel (stash) ate encontrar '\n'
+ * 
+ * 3. Ao encontrar a '\n' armazenar em uma variavel a linha
+ * 
+ * 4. limpar da (stash) a linha encontrada, deixando o que sobrou
+ * 
+ * 5. Retornar a linha encontrada
+ * 
+ * Obs: "Ao declarar a stash como static conseguimos manter a sobra
+ * que foi linda alem da '\n'"
+ */
+
+char	*read_buff(int fd)
 {
-	size_t	len;
+	char	*stash;
 
-	len = 0;
-	while (s[len])
-		len++;
-	return (len);
-}
-
-char	*copy_line(int fd)
-{
-	char	*line;
-
-	line = (char *)malloc(sizeof(char) * BUFFER_SIZE);
-	if (!line)
+	stash = (char *)malloc(sizeof(char) * BUFFER_SIZE);
+	if (!stash)
 		return (NULL);
-	read(fd, line, BUFFER_SIZE);
+	read(fd, stash, BUFFER_SIZE);
 	/* COLOCAR CARACTER NULO NO FINAL DA STRING*/
-	/* line[end] = '\0'; */
-	return (line);
-}
-
-char	*stash(char *s)
-{
-	static char stash[100];
-
-	strcat(stash, s);
+	/* stash[end] = '\0'; */
 	return (stash);
 }
 
-/*
-char	*copy_line(int fd)
-{
-    char *line;
-
-    line = (char *)malloc(sizeof(char) * BUFFER_SIZE);
-    if (!line)
-        return (NULL);
-    read(fd, line, BUFFER_SIZE);
-    COLOCAR CARACTER NULO NO FINAL DA STRING
-    line[end] = '\0';
-    return(line);
-}*/
-
 char	*get_next_line(int fd)
 {
-	char	*line;
+	static char	*line;
 
-	line = copy_line(fd);
+	line = read_buff(fd);
 	return (line);
 }
 
@@ -72,8 +55,8 @@ int	main(void)
 	int		fd;
 
 	fd = open("test.txt", O_RDONLY);
-	stash(get_next_line(fd));
-	printf("%s\n", stash(get_next_line(fd)));
+	get_next_line(fd);
+	printf("%s\n", get_next_line(fd));
 	/* printf("\nFile Descriptor: %d\n\n", fd); */
 	/* i = 1; */
 	/* while (i <= 5) */
