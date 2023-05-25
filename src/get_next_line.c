@@ -6,7 +6,7 @@
 /*   By: faaraujo <faaraujo@student.42lisboa.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/20 17:00:08 by faaraujo          #+#    #+#             */
-/*   Updated: 2023/05/23 22:16:01 by faaraujo         ###   ########.fr       */
+/*   Updated: 2023/05/25 21:49:27 by faaraujo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,6 +35,7 @@ char	*read_buff(int fd)
 	if (!stash)
 		return (NULL);
 	read(fd, stash, BUFFER_SIZE);
+	while (ft_strchr(stash, '\n'))
 	/* COLOCAR CARACTER NULO NO FINAL DA STRING*/
 	/* stash[end] = '\0'; */
 	return (stash);
@@ -44,6 +45,8 @@ char	*get_next_line(int fd)
 {
 	static char	*line;
 
+	if (fd < 0 || BUFFER_SIZE <= 0)
+		return (0);
 	line = read_buff(fd);
 	return (line);
 }
