@@ -7,6 +7,7 @@
 - [static_variable](./static_variable.md)
 - [read](./read)
 - [file_descriptor](./file_descriptor)
+- [EOF (End of File)](./EOF.md)
 
 ## Requisitos
 Function name | get_next_line
