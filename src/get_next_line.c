@@ -6,7 +6,7 @@
 /*   By: faaraujo <faaraujo@student.42lisboa.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/20 17:00:08 by faaraujo          #+#    #+#             */
-/*   Updated: 2023/05/25 21:49:27 by faaraujo         ###   ########.fr       */
+/*   Updated: 2023/05/26 21:38:27 by faaraujo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,18 +27,38 @@
  * que foi linda alem da '\n'"
  */
 
-char	*read_buff(int fd)
+/**
+ * @brief Função que obtém um valor de uma entrada externa.
+ */
+char	*read_buff(int fd, char *line)
 {
 	char	*stash;
+	int	ret_read;
 
-	stash = (char *)malloc(sizeof(char) * BUFFER_SIZE);
+	ret_read = 1;
+	stash = (char *)malloc(sizeof(char) * BUFFER_SIZE + 1);
 	if (!stash)
 		return (NULL);
-	read(fd, stash, BUFFER_SIZE);
-	while (ft_strchr(stash, '\n'))
-	/* COLOCAR CARACTER NULO NO FINAL DA STRING*/
-	/* stash[end] = '\0'; */
-	return (stash);
+	while (ft_strchr(stash, '\n') == 0 && ret_read != 0)
+	{
+		/**
+		 * @brief read() -> return:
+		 * 0 ser for lido ate o final
+		 * -1 se a leitura falhar
+		 * Outros valores (Ex. 1), valores de bytes lidos
+		 * */
+		ret_read = read(fd, stash, BUFFER_SIZE);
+		if (ret_read == -1)
+		{
+			free(stash);
+			stash = NULL;
+			return (NULL);
+		}
+		stash[ret_read] = '\0';
+		line = ft_strjoin(line, stash);
+	}
+	free(stash);
+	return (line);
 }
 
 char	*get_next_line(int fd)
