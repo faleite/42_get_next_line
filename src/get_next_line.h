@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   get_next_line.h                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: faaraujo <faaraujo@student.42lisboa.com>   +#+  +:+       +#+        */
+/*   By: faaraujo <faaraujo@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/20 12:50:32 by faaraujo          #+#    #+#             */
-/*   Updated: 2023/05/26 21:36:19 by faaraujo         ###   ########.fr       */
+/*   Updated: 2023/05/27 17:02:47 by faaraujo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,14 +20,14 @@
 # include <string.h>
 
 # ifndef BUFFER_SIZE
-#  define BUFFER_SIZE 100
+#  define BUFFER_SIZE 5
 # endif /* BUFFER_SIZE */
 
 char	*get_next_line(int fd);
 
 char	*ft_strchr(const char *s, int c);
 
-char	*ft_strjoin(char const *s1, char const *s2);
+char	*ft_strjoin(const char *s1, const char *s2);
 
 size_t	ft_strlen(char *s);
 
