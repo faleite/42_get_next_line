@@ -6,7 +6,7 @@
 /*   By: faaraujo <faaraujo@student.42lisboa.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/23 21:32:29 by faaraujo          #+#    #+#             */
-/*   Updated: 2023/05/27 17:04:49 by faaraujo         ###   ########.fr       */
+/*   Updated: 2023/05/28 16:22:21 by faaraujo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,16 +68,36 @@ char	*ft_strjoin(const char *s1, const char *s2)
 		return (NULL);
 	i = 0;
 	while (len1--)
-	{
-		s3[i] = *s1++;
-		i++;
-	}
+		s3[i++] = *s1++;
 	while (len2--)
 	{
-		s3[i] = *s2++;
-		i++;
+		s3[i++] = *s2++;
+		if (*s2 == '\n')
+			break ;
 	}	
 	s3[i] = '\0';
-	free((char *)s1);
+	//free((char *)s1);
 	return (s3);
+}
+
+char	*del_line(char *s)
+{
+	int	i;
+	int	j;
+	int	b;
+
+	i = 0;
+	j = 0;
+	b = 0;
+
+	while (s[i])
+	{
+		if (b)
+			s[j++] = s[i];
+		if (s[i] == '\n')
+			b = 1;
+		s[i] = 0;
+		i++;
+	}
+	return (s);
 }
