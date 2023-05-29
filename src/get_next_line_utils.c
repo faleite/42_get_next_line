@@ -6,7 +6,7 @@
 /*   By: faaraujo <faaraujo@student.42lisboa.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/23 21:32:29 by faaraujo          #+#    #+#             */
-/*   Updated: 2023/05/28 16:22:21 by faaraujo         ###   ########.fr       */
+/*   Updated: 2023/05/29 21:32:13 by faaraujo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,32 +19,11 @@ size_t	ft_strlen(char *s)
 	len = 0;
 	if (!s)
 		return (0);
-	while (s[len])
+	while (s[len] && s[len] != '\n')
 		len++;
+	if (s[len] == '\n')
+		return (len + 1);
 	return (len);
-}
-
-/**
- * @brief function locates the first occurrence	of c (converted	to a char) in
- * the string pointed to by s
- * The terminating null character is considered part of the string; therefore if
- * c is `\0', the functions locate the terminating `\0'.
- * @param s Pointer of string.
- * @param c character to be found (converted to char).
- * @return return a pointer to the located character, or NULL if the character 
- * does not appear in the string.
-*/
-char	*ft_strchr(const char *s, int c)
-{
-	while (*s)
-	{
-		if (*s == c)
-			return ((char *)s);
-		s++;
-	}
-	if (*s == c)
-		return ((char *)s);
-	return (NULL);
 }
 
 /** 
@@ -73,14 +52,17 @@ char	*ft_strjoin(const char *s1, const char *s2)
 	{
 		s3[i++] = *s2++;
 		if (*s2 == '\n')
+		{
+			s3[i++] = '\n';
 			break ;
-	}	
+		}
+	}
 	s3[i] = '\0';
-	//free((char *)s1);
+	free((char *)s1);
 	return (s3);
 }
 
-char	*del_line(char *s)
+int	del_line(char *s)
 {
 	int	i;
 	int	j;
@@ -89,7 +71,6 @@ char	*del_line(char *s)
 	i = 0;
 	j = 0;
 	b = 0;
-
 	while (s[i])
 	{
 		if (b)
@@ -99,5 +80,58 @@ char	*del_line(char *s)
 		s[i] = 0;
 		i++;
 	}
-	return (s);
+	return (b);
+}
+
+/* Nao esta sendo usada */
+/**
+ * @brief function locates the first occurrence	of c (converted	to a char) in
+ * the string pointed to by s
+ * The terminating null character is considered part of the string; therefore if
+ * c is `\0', the functions locate the terminating `\0'.
+ * @param s Pointer of string.
+ * @param c character to be found (converted to char).
+ * @return return a pointer to the located character, or NULL if the character 
+ * does not appear in the string.
+*/
+char	*ft_strchr(const char *s, int c)
+{
+	while (*s)
+	{
+		if (*s == c)
+			return ((char *)s);
+		s++;
+	}
+	if (*s == c)
+		return ((char *)s);
+	return (NULL);
+}
+
+/* Nao esta sendo usada */
+char	*new_line(char *buffer)
+{
+	char	*line;
+	size_t	i;
+
+	i = 0;
+	if (!buffer)
+		return (NULL);
+	while (buffer[i] != '\n' && buffer[i])
+		i++;
+	line = (char *)malloc(sizeof(char) * (i + 2));
+	if (!line)
+		return (NULL);
+	i = 0;
+	while (buffer[i] != '\n' && buffer[i])
+	{
+		line[i] = buffer[i];
+		i++;
+	}
+	if (buffer[i] == '\n')
+	{
+		line[i] = buffer[i];
+		i++;
+	}
+	line[i] = '\0';
+	return (line);
 }

@@ -1,188 +1,124 @@
-#include "get_next_line.h"
+# include    <stdio.h>
+# include    <stdlib.h>
+# include    <string.h>
+# include    <unistd.h>
+# include <fcntl.h> 
 
-size_t	ft_strlen(char *s)
+# ifndef BUFFER_SIZE
+#  define BUFFER_SIZE 43
+# endif
+
+size_t    ft_strlen(char *s)
 {
-	size_t	len;
+    int    i;
 
-	len = 0;
-	if (!s)
-		return (0);
-	while (s[len])
-		len++;
-	return (len);
+    i = 0;
+    if (!s)
+        return (0);
+    while (s[i] && s[i] != '\n')
+        i++;
+    if (s[i] == '\n')
+        i++;
+    return (i);
 }
 
-/**
- * @brief function locates the first occurrence	of c (converted	to a char) in
- * the string pointed to by s
- * The terminating null character is considered part of the string; therefore if
- * c is `\0', the functions locate the terminating `\0'.
- * @param s Pointer of string.
- * @param c character to be found (converted to char).
- * @return return a pointer to the located character, or NULL if the character 
- * does not appear in the string.
-*/
-char	*ft_strchr(const char *s, int c)
+char    *ft_strjoin(char *s1, char *s2)
 {
-	while (*s)
-	{
-		if (*s == c)
-			return ((char *)s);
-		s++;
-	}
-	if (*s == c)
-		return ((char *)s);
-	return (NULL);
+    char    *string;
+    int        i;
+    int        j;
+
+    i = 0;
+    j = 0;
+    string = malloc(ft_strlen(s1) + ft_strlen(s2) + 1);
+    if (!string)
+        return (NULL);
+    while (s1 && s1[i])
+        string[j++] = s1[i++];
+    i = 0;
+    while (s2[i])
+    {
+        string[j++] = s2[i];
+        if (s2[i++] == '\n')
+            break ;
+    }
+    string[j] = 0;
+    free(s1);
+    return (string);
 }
 
-/** 
- * @brief Allocates (with malloc(3)) and returns a new string, which is the
- * result of the concatenation of ’s1’ and ’s2’.
- * @param s1 The prefix string.
- * @param s2 The suffix string.
- * @return The new string. NULL if the allocation fails.
-*/
-char	*ft_strjoin(const char *s1, const char *s2)
+int    ft_clean(char *s)
 {
-	char	*s3;
-	size_t	len1;
-	size_t	len2;
-	size_t	i;
+    int    bool;
+    int    i;
+    int    j;
 
-	len1 = ft_strlen((char *)s1);
-	len2 = ft_strlen((char *)s2);
-	s3 = (char *)malloc(sizeof(char) * (len1 + len2 + 1));
-	if (!(s3))
-		return (NULL);
-	i = 0;
-	while (len1--)
-	{
-		s3[i] = *s1++;
-		i++;
-	}
-	while (len2--)
-	{
-		s3[i] = *s2++;
-		/* if (*s2 == '\n') */
-			/* break ; */
-		i++;
-	}	
-	s3[i] = '\0';
-	//free((char *)s1);
-	return (s3);
+    i = 0;
+    j = 0;
+    bool = 0;
+    while (s[i])
+    {
+        if (bool)
+            s[j++] = s[i];
+        if (s[i] == '\n')
+            bool = 1;
+        s[i] = 0;
+        i++;
+    }
+    return (bool);
 }
 
-char	*del_line(char *s)
+char    *get_next_line(int fd)
 {
-	int	i;
-	int	j;
-	int	b;
+    static char    cursor[BUFFER_SIZE + 1];
+    char        *line;
 
-	i = 0;
-	j = 0;
-	b = 0;
-
-	while (s[i])
-	{
-		if (b)
-			s[j++] = s[i];
-		if (s[i] == '\n')
-			b = 1;
-		s[i] = 0;
-		i++;
-	}
-	return (s);
+    if (fd < 0 || FOPEN_MAX < fd)
+        return (NULL);
+    line = NULL;
+    while (cursor[0] || read(fd, cursor, BUFFER_SIZE) > 0)
+    {
+        line = ft_strjoin(line, cursor);
+        if (ft_clean(cursor) == 1)
+            break ;
+        if (read(fd, cursor, 0) < 0)
+        {
+            free (line);
+            return (NULL);
+        }
+    }
+    return (line);
 }
 
-char	*read_buff(int fd, char *buffer)
+int    main(void)
 {
-	char	*stash;
-	int	ret_read;
+    char    *line;
+    char    *line1;
+    /* char    *line2; */
+    int        fd;
+    /* int        i; */
 
-	ret_read = 1;
-	stash = (char *)malloc(sizeof(char) * BUFFER_SIZE + 1);
-	if (!stash)
-		return (NULL);
-	while (ft_strchr(stash, '\n') == 0 && ret_read != 0)
-	{
-		ret_read = read(fd, stash, BUFFER_SIZE);
-		if (ret_read == -1)
-		{
-			free(stash);
-			stash = NULL;
-			return (NULL);
-		}
-		stash[ret_read] = '\0';
-		buffer = ft_strjoin(buffer, stash);
-	}
-	free(stash);
-	return (buffer);
-}
-
-char	*new_line(char *buffer)
-{
-	char	*line;
-	size_t	i;
-
-	i = 0;
-	if (!buffer)
-		return (NULL);
-	while (buffer[i] != '\n' && buffer[i])
-		i++;
-	line = (char *)malloc(sizeof(char) * (i + 2));
-	if (!line)
-		return (NULL);
-	i = 0;
-	while (buffer[i] != '\n' && buffer[i])
-	{
-		line[i] = buffer[i];
-		i++;
-	}
-	if (buffer[i] == '\n')
-	{
-		line[i] = buffer[i];
-		i++;
-	}
-	line[i] = '\0';
-	return (line);
-}
-
-char	*get_next_line(int fd)
-{
-	static char	*buffer;
-	char	*line;
-
-	if (fd < 0 || BUFFER_SIZE <= 0)
-		return (NULL);
-	buffer = read_buff(fd, buffer);
-	if (!buffer)
-		return (NULL);
-	line = new_line(buffer);
-	buffer = del_line(buffer);
-	return (line);
-}
-
-int	main(void)
-{
-	char	*line;
-	int		fd;
-	/* int		i; */
-
-	fd = open("test1.txt", O_RDONLY);
-	line = get_next_line(fd);
-	/* printf("%s\n", line); */
-	/* printf("\nFile Descriptor: %d\n\n", fd); */
-	/* i = 1; */
-	/* while (i <= 5) */
-	/* { */
-		/* line = get_next_line(fd); */
-		/* printf("line [%02d]: %s", i, line); */
-		/* printf("%s", line); */
-		/* free(line); */
-		/* i++; */
-	/* } */
-	/* printf("\nReturn value of read: %zd", read(fd, line, BUFFER_SIZE)); */
-	close(fd);
-	free(line);
-	return (0);
+    fd = open("test1.txt", O_RDONLY);
+    line = get_next_line(fd);
+    line1 = get_next_line(fd);
+    /* line2 = get_next_line(fd); */
+    printf("%s", line);
+    printf("%s", line1);
+    /* printf("%s", line2); */
+    /* printf("\nFile Descriptor: %d\n\n", fd); */
+    /* i = 1; */
+    /* while (i <= 5) */
+    /* { */
+        /* line = get_next_line(fd); */
+        /* printf("line [%02d]: %s", i, line); */
+        /* printf("%s", line); */
+        /* free(line); */
+        /* i++; */
+    /* } */
+    /* printf("\nReturn value of read: %zd", read(fd, line, BUFFER_SIZE)); */
+    close(fd);
+    free(line);
+    free(line1);
+    /* free(line2); */
+    return (0);
 }
