@@ -6,7 +6,7 @@
 /*   By: faaraujo <faaraujo@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/20 12:50:32 by faaraujo          #+#    #+#             */
-/*   Updated: 2023/05/29 21:18:23 by faaraujo         ###   ########.fr       */
+/*   Updated: 2023/05/30 21:37:18 by faaraujo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,7 @@ char	*get_next_line(int fd);
 
 char	*ft_strchr(const char *s, int c);
 
-char	*ft_strjoin(const char *s1, const char *s2);
+char	*ft_strjoin(char *s1, char *s2);
 
 int	del_line(char *s);
 

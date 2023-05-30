@@ -6,7 +6,7 @@
 /*   By: faaraujo <faaraujo@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/20 17:00:08 by faaraujo          #+#    #+#             */
-/*   Updated: 2023/05/29 21:37:09 by faaraujo         ###   ########.fr       */
+/*   Updated: 2023/05/30 22:15:47 by faaraujo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,52 +16,61 @@
  * @brief Função que obtém um valor de uma entrada externa.
  * "Passos 1 e 2."
  */
-char	*read_buff(int fd, char *buffer)
-{
-	char	*stash;
-	int	ret_read;
 
-	ret_read = 1;
-	stash = (char *)malloc(sizeof(char) * BUFFER_SIZE + 1);
-	if (!stash)
+char	*clean_line(char *buffer)
+{
+	char	*new;
+	int	i;
+	int	j;
+	int	b;
+
+	if (!buffer)
 		return (NULL);
-	/* while (ft_strchr(stash, '\n') == 0 && ret_read != 0) */
-	/* { */
-		ret_read = read(fd, stash, BUFFER_SIZE);
-		if (ret_read == -1)
-		{
-			free(stash);
-			stash = NULL;
-			return (NULL);
-		}
-		stash[ret_read] = '\0';
-		/* buffer = ft_strjoin(buffer, stash); */
-	/* } */
-	/* free(stash); */
-	return (stash);
+	i = 0;
+	j = 0;
+	b = 0;
+	while (buffer[i] && buffer[i] != '\n')
+		i++;
+	new = (char *)malloc(sizeof(char) * (ft_strlen(buffer) - i + 1));
+	if (!new)
+		return (NULL);
+	/* if (*buffer == '\n') */
+		/* b = 1; */
+	i++;
+	while (buffer[i])
+		new[j++] = buffer[i++];
+	new[j] = '\0';
+	free(buffer);
+	buffer = new;
+	return (buffer);
 }
 
 char	*get_next_line(int fd)
 {
 	static char	buffer[BUFFER_SIZE + 1];
+	/* static char	*buffer;	 */
 	char	*line;
+	int	val_rd;
 
-	line = NULL;
+	val_rd = 1;
 	if (fd < 0 || BUFFER_SIZE <= 0)
 		return (NULL);
-	/* buffer = read_buff(fd, buffer); */
+	line = NULL;
+	/* buffer = (char *)malloc(sizeof(char) * (BUFFER_SIZE + 1)); */
 	/* if (!buffer) */
-		/* return (NULL); */
-	 while (buffer[0] || read(fd, buffer, BUFFER_SIZE) > 0)
+		/* return(NULL); */
+	while (*buffer || read(fd, buffer, BUFFER_SIZE) > 0)
 	{
+		val_rd = read(fd, buffer, BUFFER_SIZE);
 		line = ft_strjoin(line, buffer);
+		/* buffer = clean_line(buffer); */
 		if (del_line(buffer) == 1)
-            		break ;
-        	if (read(fd, buffer, 0) < 0)
-        	{
-            		free (line);
-            		return (NULL);
-        	}
+			    break ;
+		if (val_rd < 0)
+		{
+			free (line);
+			return (NULL);
+		}
 	}
 	return (line);
 }

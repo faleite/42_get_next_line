@@ -6,7 +6,7 @@
 /*   By: faaraujo <faaraujo@student.42lisboa.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/23 21:32:29 by faaraujo          #+#    #+#             */
-/*   Updated: 2023/05/29 21:32:13 by faaraujo         ###   ########.fr       */
+/*   Updated: 2023/05/30 21:52:37 by faaraujo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@ size_t	ft_strlen(char *s)
 	len = 0;
 	if (!s)
 		return (0);
-	while (s[len] && s[len] != '\n')
+	while (s[len])
 		len++;
 	if (s[len] == '\n')
 		return (len + 1);
@@ -33,32 +33,28 @@ size_t	ft_strlen(char *s)
  * @param s2 The suffix string.
  * @return The new string. NULL if the allocation fails.
 */
-char	*ft_strjoin(const char *s1, const char *s2)
+char	*ft_strjoin(char *s1, char *s2)
 {
 	char	*s3;
-	size_t	len1;
-	size_t	len2;
 	size_t	i;
+	size_t	j;
 
-	len1 = ft_strlen((char *)s1);
-	len2 = ft_strlen((char *)s2);
-	s3 = (char *)malloc(sizeof(char) * (len1 + len2 + 1));
+	s3 = (char *)malloc(sizeof(char) * (ft_strlen(s1) + ft_strlen(s2) + 1));
 	if (!(s3))
 		return (NULL);
 	i = 0;
-	while (len1--)
-		s3[i++] = *s1++;
-	while (len2--)
+	j = 0;
+	while (s1 && s1[i])
+		s3[j++] = s1[i++];
+	i = 0;
+	while (s2[i])
 	{
-		s3[i++] = *s2++;
-		if (*s2 == '\n')
-		{
-			s3[i++] = '\n';
+		s3[j++] = s2[i];
+		if (s2[i++] == '\n')
 			break ;
-		}
 	}
-	s3[i] = '\0';
-	free((char *)s1);
+	s3[j] = '\0';
+	free(s1);
 	return (s3);
 }
 
