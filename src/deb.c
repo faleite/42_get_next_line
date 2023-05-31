@@ -15,7 +15,7 @@ size_t    ft_strlen(char *s)
     i = 0;
     if (!s)
         return (0);
-    while (s[i]!= '\n')
+    while (s[i])
         i++;
     if (s[i] == '\n')
         i++;
@@ -93,32 +93,32 @@ char    *get_next_line(int fd)
 int    main(void)
 {
     char    *line;
-    char    *line1;
+    /* char    *line1; */
     /* char    *line2; */
     int        fd;
-    /* int        i; */
+    int        i;
 
     fd = open("test1.txt", O_RDONLY);
-    line = get_next_line(fd);
-    line1 = get_next_line(fd);
+    /* line = get_next_line(fd); */
+    /* line1 = get_next_line(fd); */
     /* line2 = get_next_line(fd); */
-    printf("%s", line);
-    printf("%s", line1);
+    /* printf("%s", line); */
+    /* printf("%s", line1); */
     /* printf("%s", line2); */
-    /* printf("\nFile Descriptor: %d\n\n", fd); */
-    /* i = 1; */
-    /* while (i <= 5) */
-    /* { */
-        /* line = get_next_line(fd); */
+    printf("\nFile Descriptor: %d\n\n", fd);
+    i = 1;
+    while (i <= 3)
+    {
+        line = get_next_line(fd);
         /* printf("line [%02d]: %s", i, line); */
-        /* printf("%s", line); */
-        /* free(line); */
-        /* i++; */
-    /* } */
-    /* printf("\nReturn value of read: %zd", read(fd, line, BUFFER_SIZE)); */
+        printf("%s", line);
+        free(line);
+        i++;
+    }
+    printf("\nReturn value of read: %zd", read(fd, line, BUFFER_SIZE));
     close(fd);
-    free(line);
-    free(line1);
+    /* free(line); */
+    /* free(line1); */
     /* free(line2); */
     return (0);
 }

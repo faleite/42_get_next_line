@@ -6,7 +6,7 @@
 /*   By: faaraujo <faaraujo@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/20 17:00:08 by faaraujo          #+#    #+#             */
-/*   Updated: 2023/05/30 22:15:47 by faaraujo         ###   ########.fr       */
+/*   Updated: 2023/05/31 21:15:46 by faaraujo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,62 +17,64 @@
  * "Passos 1 e 2."
  */
 
-char	*clean_line(char *buffer)
-{
-	char	*new;
-	int	i;
-	int	j;
-	int	b;
+/* char	*clean_line(char *buffer) */
+/* { */
+	/* char	*new; */
+	/* int	i; */
+	/* int	j; */
+	/* int	b; */
 
-	if (!buffer)
-		return (NULL);
-	i = 0;
-	j = 0;
-	b = 0;
-	while (buffer[i] && buffer[i] != '\n')
-		i++;
-	new = (char *)malloc(sizeof(char) * (ft_strlen(buffer) - i + 1));
-	if (!new)
-		return (NULL);
+	/* if (!buffer) */
+		/* return (NULL); */
+	/* i = 0; */
+	/* j = 0; */
+	/* b = 0; */
+	/* while (buffer[i] && buffer[i] != '\n') */
+		/* i++; */
+	/* new = (char *)malloc(sizeof(char) * (ft_strlen(buffer) - i + 1)); */
+	/* if (!new) */
+		/* return (NULL); */
 	/* if (*buffer == '\n') */
 		/* b = 1; */
-	i++;
-	while (buffer[i])
-		new[j++] = buffer[i++];
-	new[j] = '\0';
-	free(buffer);
-	buffer = new;
-	return (buffer);
-}
+	/* i++; */
+	/* while (buffer[i]) */
+		/* buffer[j++] = buffer[i++]; */
+	/* buffer[j] = '\0'; */
+	/* free(buffer); */
+	/* buffer = new; */
+	/* return (buffer); */
+/* } */
 
 char	*get_next_line(int fd)
 {
-	static char	buffer[BUFFER_SIZE + 1];
-	/* static char	*buffer;	 */
-	char	*line;
-	int	val_rd;
+        static char	buffer[BUFFER_SIZE + 1];
+        /* static char	*buffer;	 */
+        char	*line;
+        /* int	val_rd; */
 
-	val_rd = 1;
-	if (fd < 0 || BUFFER_SIZE <= 0)
-		return (NULL);
-	line = NULL;
-	/* buffer = (char *)malloc(sizeof(char) * (BUFFER_SIZE + 1)); */
-	/* if (!buffer) */
-		/* return(NULL); */
-	while (*buffer || read(fd, buffer, BUFFER_SIZE) > 0)
-	{
-		val_rd = read(fd, buffer, BUFFER_SIZE);
-		line = ft_strjoin(line, buffer);
-		/* buffer = clean_line(buffer); */
-		if (del_line(buffer) == 1)
-			    break ;
-		if (val_rd < 0)
-		{
-			free (line);
-			return (NULL);
-		}
-	}
-	return (line);
+        /* val_rd = 1; */
+        if (fd < 0 || BUFFER_SIZE <= 0)
+                return (NULL);
+        line = NULL;
+        /* buffer = (char *)malloc(sizeof(char) * (BUFFER_SIZE + 1)); */
+        /* if (!buffer) */
+                /* return(NULL); */
+        /* while (buffer[0] || val_rd > 0) */
+        while (buffer[0] || read(fd, buffer, BUFFER_SIZE) > 0)
+        {
+                /* val_rd = read(fd, buffer, BUFFER_SIZE); */
+                line = ft_strjoin(line, buffer);
+                /* buffer = ft_strchr(buffer, '\n'); */
+                if (del_line(buffer) == 1)
+                            break ;
+                /* if (val_rd < 0) */
+                if (read(fd, buffer, 0) < 0)
+                {
+                        free (line);
+                        return (NULL);
+                }
+        }
+        return (line);
 }
 
 int	main(void)
@@ -83,7 +85,7 @@ int	main(void)
 	int		fd;
 	int		i;
 
-	fd = open("test1.txt", O_RDONLY);
+	fd = open("test.txt", O_RDONLY);
 	/* line = get_next_line(fd); */
 	/* line1 = get_next_line(fd); */
 	/* line2 = get_next_line(fd); */
