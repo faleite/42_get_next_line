@@ -6,7 +6,7 @@
 /*   By: faaraujo <faaraujo@student.42lisboa.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/23 21:32:29 by faaraujo          #+#    #+#             */
-/*   Updated: 2023/05/31 21:07:34 by faaraujo         ###   ########.fr       */
+/*   Updated: 2023/06/01 21:10:20 by faaraujo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -83,21 +83,25 @@ int    clean_line(char *buffer)
 {
     int    i;
     int    j;
-    int result;
+    int    result;
+    int    end;
     
     i = 0;
     j = 0;
     result = 0;
-    while (buffer[i] && buffer[i] != '\n')
+    while (buffer[i] != '\n' && buffer[i])
     {
-        buffer[i++] = 0;
-        if (buffer[i] == '\n')
-            result = 1;
+        buffer[i] = 0;
+        i++;
     }
+    buffer[i] = 0;
     i++;
+    end = i;
     while (buffer[i])
         buffer[j++] = buffer[i++];
-    buffer[j] = '\0';
+    //buffer[j] = '\0';
+    while (end--)
+        buffer[j++] = 0;
     return (result);
 }
 
@@ -125,17 +129,6 @@ char	*ft_strchr(const char *s, int c)
 	return (NULL);
 }
 
-char *ft_strndup(const char *s, size_t n)
-{
-    size_t len = strnlen(s, n);
-    char *dup = (char *)malloc(len + 1);
-    if (dup != NULL)
-    {
-        memcpy(dup, s, len);
-        dup[len] = '\0';
-    }
-    return dup;
-}
 /* char	*new_line(char *buffer) */
 /* { */
 	/* char	*get_line; */
@@ -178,3 +171,31 @@ char	*new_line(char *buffer)
 	line[i] = '\0';
 	return (line);
 }
+
+/*int    clean_line(char *buffer)
+{
+    int    i;
+    int    j;
+    int    result;
+    int    end;
+    
+    i = 0;
+    j = 0;
+    result = 0;
+    while (buffer[i] && buffer[i] != '\n')
+    {
+        
+        if (buffer[i] == '\n')
+            result = 1;
+        buffer[i] = 0;
+        i++;
+    }
+    i++;
+    end = i;
+    while (buffer[i])
+        buffer[j++] = buffer[i++];
+    buffer[j] = '\0';
+    while (end--)
+        buffer[j++] = 0;
+    return (result);
+}*/
