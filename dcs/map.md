@@ -3,7 +3,7 @@
 ## Documentation
 ### [Summary](https://github.com/faleite/42get_next_line/blob/main/dcs/summary.md)
 ### [Static Variables](https://github.com/faleite/42get_next_line/blob/main/dcs/static_variable.md)
-### [Rad](https://github.com/faleite/42get_next_line/blob/main/dcs/read.md)
+### [Read](https://github.com/faleite/42get_next_line/blob/main/dcs/read.md)
 ### [Open](https://github.com/faleite/42get_next_line/blob/main/dcs/open.md)
 ### [File Descriptor](https://github.com/faleite/42get_next_line/blob/main/dcs/file_descriptor.md)
 ### [EOF](https://github.com/faleite/42get_next_line/blob/main/dcs/EOF.md)
