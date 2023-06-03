@@ -1,6 +1,6 @@
 # Clean line solutions
 
-## Work
+## Work 
 ```c
 int    clean_line(char *buffer)
 {
@@ -12,7 +12,6 @@ int    clean_line(char *buffer)
     i = 0;
     j = 0;
     result = 0;
-    buffer[100];
     while (buffer[i] && buffer[i] != '\n')
     {
         buffer[i] = 0;
