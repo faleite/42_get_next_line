@@ -53,3 +53,10 @@ cc -Wall -Wextra -Werror -D BUFFER_SIZE=42 <files>.c
 - Você não tem permissão para usar sua libft neste projeto.
 - lseek() é proibido.
 - Variáveis globais são proibidas.
+---
+## Referencias
+- [Master File I/O Operations with 42’s get_next_line Project | by A. Yigit Ogun | Medium](https://medium.com/@ayogun/master-file-i-o-operations-with-42s-get-next-line-project-5fb001d1fff5)
+- https://velog.io/@ljiwoo59/getnextline
+- https://hector.dev.br/2021/08/27/GNL-get-next-line-42/
+- https://soulee.dev/2023/01/02/42-seoul-get-next-line
+- https://valuelog.tistory.com/122
